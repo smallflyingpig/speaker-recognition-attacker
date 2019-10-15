@@ -1,0 +1,665 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0030)https://speech2face.github.io/ -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>
+speech-to-image translation without text
+</title>
+<link href="./main/style.css" rel="stylesheet" type="text/css">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script type="text/javascript" async="" src="./main/analytics.js"></script><script async="" src="./main/js"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-65563403-4');
+</script>
+</head>
+<body>
+<div class="container">
+  <p>&nbsp;</p>
+  <!--
+  <p><span class="venue">IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2019</span></p>
+  -->
+  <p><span class="title">Speech-to-Image Translation without Text</span></p>
+  <br>
+  <table border="0" align="center" class="authors">
+    <tbody><tr align="center" valign="bottom">
+    <!--
+      <td><a href="https://ai.google/research/people/InbarMosseri">Inbar Mosseri</a></td>
+      <td><a href="https://billf.mit.edu/">William T. Freeman</a><sup>✝</sup></td>
+      <td><a href="http://people.csail.mit.edu/mrub/">Michael Rubinstein<sup> </sup></a></td>
+      <td><a href="http://people.csail.mit.edu/wojciech">Wojciech Matusik</a><sup>✝</sup></td>
+    -->
+    <td><a href="https://github.com/smallflyingpig">Jiguo Li</a><sup></sup></td>
+    <td><a href="https://scholar.google.com/citations?user=KQB-cKAAAAAJ&hl=zh-CN">Xinfeng Zhang</a><sup></sup></td>
+    <td><a href="http://www.jiachuanmin.site/">Chuanmin Jia</a><sup></sup></td>
+    <td><a href="https://scholar.google.com/citations?user=x4iWZ7wAAAAJ&hl=en">Jizheng Xu</a><sup></sup></td>
+    <td><a href="https://scholar.google.com/citations?user=8G5-2OMAAAAJ&hl=en">Li Zhang</a><sup></sup></td>
+    <td><a href="">Yue Wang</a><sup></sup></td>
+    <td><a href="http://www.idm.pku.edu.cn/Teamcon/index/id/456/aid/2831">Siwei Ma</a><sup>✝</sup></td>
+    <td><a href="http://www.jdl.ac.cn/htm-gaowen/">Wen Gao</a><sup></sup></td>
+    </tr>
+  </tbody></table>
+  <br>
+  <table border="0" align="center" class="affiliations" height="72">
+    <tbody><tr align="center" valign="middle">
+
+  <td align="right" style="padding:0 0px 0 0px;">
+    <a href="http://www.ict.ac.cn/">
+      <img src="./image/cnplogo.jpg"  height="36" alt="">
+    </a>
+    </td>
+    <td align="left" style="padding:0 20px 0 0px;">
+      <a href="http://www.ict.ac.cn/">ICT,CAS</a>
+    </td>
+  <td align="right" style="padding:0 0px 0 0px;"> 
+    <a href="https://www.pku.edu.cn/">
+      <img src="./image/Peking_University.jpg" height="36" alt="">
+    </a>
+    </td>
+    <td align="center" style="padding:0 20px 0 0px;">
+      <sup>✝</sup><a href="https://www.pku.edu.cn/">PKU</a>
+    </td>
+
+    <td align="right" style="padding:0 0px 0 0px;"> 
+        <a href="http://www.ucas.ac.cn/">
+          <img src="./image/UCAS_logo.jpg" height="36" alt="">
+        </a>
+        </td>
+        <td align="center" style="padding:0 20px 0 0px;">
+          <a href="http://www.ucas.ac.cn/">UCAS</a>
+        </td>
+  
+  <td align="right" style="padding:0 0px 0 0px;">
+    <a href="https://bytedance.com/zh">
+      <img src="./image/ByteDance_Logo.jpg"  height="36" alt="">
+    </a>
+    </td>
+    <td align="left" style="padding:0 0px 0 0px;">
+      <a href="https://bytedance.com/zh">Bytedance</a>
+    </td>
+  
+    </tr>
+  </tbody></table>
+  <br>
+  <table width="40%" border="0" align="center">
+    <tbody>
+      <tr>
+        <td class="caption">
+          <img src="./image/audio_to_image.jpg" width="100%" alt="">
+        </td>
+      </tr>
+      <tr>
+          <td colspan="1" class="caption">
+            <p>
+              Our speech-to-image transltion task. The input of the model is the speech signal without text. <strong>Note that the text are shown only for readibility.</strong> Our goal is to show the content of the input speech onto the image.
+            <br>
+            
+          </p></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><span class="section">Abstract</span> </p>
+  <p>
+      Speech-to-image translation without text is an interesting
+      and useful topic due to the potential applications in humancomputer
+      interaction, art creation, computer-aided design. etc.
+      Not to mention that many languages have no writing form.
+      However, as far as we know, it has not been well-studied
+      how to translate the speech signals into images directly and
+      how well they can be translated. In this paper, we attempt to
+      translate the speech signals into the image signals without the
+      transcription stage by leveraging the advance of teacher-student
+      learning and generative adversarial models. Specifically, a speech
+      encoder is designed to represent the input speech signals as
+      an embedding feature, and it is trained using teacher-student
+      learning to obtain better generalization ability on new classes.
+      Subsequently, a stacked adversarial generative network is used
+      to synthesized high-quality images conditioned on the embedding
+      feature encoded by the speech encoder. Experimental results on
+      both synthesized and real data show that our proposed method is
+      efficient to translate the raw speech signals into images without
+      the middle text representation. Ablation study gives more insights
+      about our method.
+    <br>&nbsp;<br>
+  </p>
+  <p><span class="section">Framework</span> </p>
+
+  <table width=80% border="0" align="center">
+      <tbody>
+        <tr>
+          <td class="aligncenter">
+            <img src="./image/proposal_model.jpg" width=100% alt="">
+          </td>
+        </tr>
+        <tr>
+            <td colspan="1" class="caption">
+              <p>
+                Our framework for speech-to-image translation, which is composed with a speech encoder and a stacked generator.
+                The speech encoder contains a multi-layer CNN and an RNN to encode the input time-frequency spectrogram 
+                into an embedding feature with 1024 dimensions. The speech encoder is trained using teacher-student learning with the pretrained image encoder.
+                The generator with 3 branches is used to synthesize image at a resolution 256x256 from the embedding feature.
+              <br>
+            </p></td>
+        </tr>
+      </tbody>
+  </table>
+
+
+  <p><span class='section'>Results on synthesized data</span></p>
+  
+  <table width=100% border="0" align="center">
+      <tbody>
+        <tr>
+          <td class="aligncenter">
+           <audio src="./audio/Golden_Winged_Warbler_0044_794836_5.bird_row1.ogg" controls="controls" style="width: 150px;"></audio>
+          </td>
+          <td class="aligncenter">
+            <img src="./image/image_quality_row1.jpg" width=100% alt="">
+          </td>
+        </tr>
+        <tr>
+            <td class="aligncenter">
+             <audio src="./audio/Purple_Finch_0001_27571_0.bird_row2.ogg" controls="controls" style="width: 150px;"></audio>
+            </td>
+            <td class="aligncenter">
+              <img src="./image/image_quality_row2.jpg" width=100% alt="">
+            </td>
+        </tr>
+        <tr>
+          <td class="aligncenter">
+           <audio src="./audio/Scott_Oriole_0063_795812_7.bird_row3.ogg" controls="controls" style="width: 150px;"></audio>
+          </td>
+          <td class="aligncenter">
+            <img src="./image/image_quality_row3.jpg" width=100% alt="">
+          </td>
+        </tr>
+        <tr>
+          <td class="aligncenter">
+           <audio src="./audio/Sayornis_0002_98596_0.bird_row4.ogg" controls="controls" style="width: 150px;"></audio>
+          </td>
+          <td class="aligncenter">
+            <img src="./image/image_quality_row4.jpg" width=100% alt="">
+          </td>
+        </tr>
+        <tr>
+            <td class="aligncenter">
+             <audio src="./audio/Pomarine_Jaeger_0062_61351_8.bird_row5.ogg" controls="controls" style="width: 150px;"></audio>
+            </td>
+            <td class="aligncenter">
+              <img src="./image/image_quality_row5.jpg" width=100% alt="">
+            </td>
+        </tr>
+        <tr>
+            <td class="aligncenter">
+             <audio src="./audio/image_03095_0.flower_row6.ogg" controls="controls" style="width: 150px;"></audio>
+            </td>
+            <td class="aligncenter">
+              <img src="./image/image_quality_row6.jpg" width=100% alt="">
+            </td>
+        </tr>
+        <tr>
+            <td class="aligncenter">
+             <audio src="./audio/image_04259_4.flower_row7.ogg" controls="controls" style="width: 150px;"></audio>
+            </td>
+            <td class="aligncenter">
+              <img src="./image/image_quality_row7.jpg" width=100% alt="">
+            </td>
+        </tr>
+        <tr>
+            <td class="aligncenter">
+             <audio src="./audio/image_03135_3.flower_row8.ogg" controls="controls" style="width: 150px;"></audio>
+            </td>
+            <td class="aligncenter">
+              <img src="./image/image_quality_row8.jpg" width=100% alt="">
+            </td>
+        </tr>
+        <tr>
+            <td class="aligncenter">
+             <audio src="./audio/image_03354_5.flower_row9.ogg" controls="controls" style="width: 150px;"></audio>
+            </td>
+            <td class="aligncenter">
+              <img src="./image/image_quality_row9.jpg" width=100% alt="">
+            </td>
+        </tr>
+        <tr>
+            <td class="aligncenter">
+             <audio src="./audio/image_03180_0.flower_row10.ogg" controls="controls" style="width: 150px;"></audio>
+            </td>
+            <td class="aligncenter">
+              <img src="./image/image_quality_row10.jpg" width=100% alt="">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="caption" align="center">
+              <p>
+                Results on <a href="http://www.vision.caltech.edu/visipedia/CUB-200-2011.html">CUB-200</a> and 
+                <a href="http://www.robots.ox.ac.uk/~vgg/data/flowers/">Oxford-102</a> dataset. Left: the input speech description. Right: the synthesized images conditioned on the left speech description and different noises.  The speech description are synthesized via <a href="https://ai.baidu.com/tech/speech/tts">Baidu TTS</a>.
+              <br>
+            </p></td>
+        </tr>
+      </tbody>
+  </table>
+
+  <p><span class='section'>Results on read data</span></p>
+  <table width=100% border="0" align="center">
+      <tbody>
+          <tr>
+              <td class="aligncenter">
+               <audio src="./audio/utterance_276326.place1.ogg" controls="controls" style="width: 150px;"></audio>
+              </td>
+              <td class="aligncenter">
+                <img src="./image/gsun_0aa8f1d5b286c7b397e080345d7d1e4b_256_sentence0_0_place1.jpg" height="128px" alt="">
+              </td>
+              <td class="aligncenter">
+                <audio src="./audio/utterance_281895.place2.ogg" controls="controls" style="width: 150px;"></audio>
+              </td>
+              <td class="aligncenter">
+                <img src="./image/gsun_4ad3177a6bb1a66f4c29889440d7d912_256_sentence0_0_place2.jpg" height="128px" alt="">
+              </td>
+          </tr>
+          <tr>
+              <td class="aligncenter">
+               <audio src="./audio/utterance_284994.place3.ogg" controls="controls" style="width: 150px;"></audio>
+              </td>
+              <td class="aligncenter">
+                <img src="./image/gsun_0f0d6139110c1b6e8ee8427af043cac4_256_sentence0_0_place3.jpg" height="128px" alt="">
+              </td>
+              <td class="aligncenter">
+                <audio src="./audio/utterance_388460.place4.ogg" controls="controls" style="width: 150px;"></audio>
+              </td>
+              <td class="aligncenter">
+                <img src="./image/gsun_7b053262cb331e7fcc60c2c16f7ae222_256_sentence0_0_place4.jpg" height="128px" alt="">
+              </td>
+          </tr>
+          <tr>
+              <td class="aligncenter">
+               <audio src="./audio/utterance_18908.place5.ogg" controls="controls" style="width: 150px;"></audio>
+              </td>
+              <td class="aligncenter">
+                <img src="./image/gsun_2dbc415b379a636bb33644b112b96849_256_sentence0_0_place5.jpg" height="128px" alt="">
+              </td>
+              <td class="aligncenter">
+                <audio src="./audio/utterance_311414.place6.ogg" controls="controls" style="width: 150px;"></audio>
+              </td>
+              <td class="aligncenter">
+                <img src="./image/gsun_6c9203a8ef8d2f34b09e21e22df053e5_256_sentence0_0_place6.jpg" height="128px" alt="">
+              </td>
+          </tr>
+          <tr>
+              <td class="aligncenter">
+               <audio src="./audio/utterance_276277.place7.ogg" controls="controls" style="width: 150px;"></audio>
+              </td>
+              <td class="aligncenter">
+                <img src="./image/gsun_3a51413a94077a4f462c4ddb78688eb0_256_sentence0_0_place7.jpg" height="128px" alt="">
+              </td>
+              <td class="aligncenter">
+                <audio src="./audio/utterance_276064.place8.ogg" controls="controls" style="width: 150px;"></audio>
+              </td>
+              <td class="aligncenter">
+                <img src="./image/gsun_773783bbeca9b1ed5bf3b5e5150f477b_256_sentence0_0_place8.jpg" height="128px" alt="">
+              </td>
+          </tr>
+        <tr>
+            <td colspan="4" class="caption" align="center">
+              <p>
+                results on <a href="http://places.csail.mit.edu/">Place-205</a> dataset with <a href="https://groups.csail.mit.edu/sls/downloads/placesaudio/index.cgi">real speech descriptions</a>.
+              <br>
+            </p></td>
+        </tr>
+      </tbody>
+  </table>
+
+  <p><span class="section">Feature interpolation</span></p>
+  <table width=100% border="0" align="center">
+    <tbody>
+      <tr height="16px">
+        <td class="aligncenter" width=50%>
+          <audio src="./audio/audio_inter_row1_1.ogg" controls="controls" width="150px">the small bird has a brown head with yellow belly.</audio>
+        </td>
+        <td class="aligncenter" width=50%>
+            <audio src="./audio/audio_inter_row1_2.ogg" controls="controls" width="150px">the small bird has a blue head with white belly.</audio>
+          </td>
+      </tr>
+      <tr>
+        <td colspan="2" class="aligncenter" width=100%>
+          <img src="image/audio_interpolation_row1.jpg" width=100%>
+        </td>
+      </tr>
+      <tr height="16px">
+          <td class="aligncenter" width=50%>
+            <audio src="./audio/audio_inter_row2_1.ogg" controls="controls" width="150px"></audio>
+          </td>
+          <td class="aligncenter" width=50%>
+              <audio src="./audio/audio_inter_row2_2.ogg" controls="controls" width="150px"></audio>
+            </td>
+        </tr>
+        <tr>
+          <td colspan="2" class="aligncenter" width=100%>
+            <img src="image/audio_interpolation_row2.jpg" width=100%>
+          </td>
+        </tr>
+        <tr height="16px">
+            <td class="aligncenter" width=50%>
+              <audio src="./audio/audio_inter_row3_1.ogg" controls="controls" width="150px"></audio>
+            </td>
+            <td class="aligncenter" width=50%>
+                <audio src="./audio/audio_inter_row3_2.ogg" controls="controls" width="150px"></audio>
+              </td>
+          </tr>
+          <tr>
+            <td colspan="2" class="aligncenter" width=100%>
+              <img src="image/audio_interpolation_row3.jpg" width=100%>
+            </td>
+          </tr>
+          <tr height="16px">
+              <td class="aligncenter" width=50%>
+                <audio src="./audio/audio_inter_row4_1.ogg" controls="controls" width="150px"></audio>
+              </td>
+              <td class="aligncenter" width=50%>
+                  <audio src="./audio/audio_inter_row4_2.ogg" controls="controls" width="150px"></audio>
+                </td>
+            </tr>
+            <tr>
+              <td colspan="2" class="aligncenter" width=100%>
+                <img src="image/audio_interpolation_row4.jpg" width=100%>
+              </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="caption" align="center">
+                  <p>
+                    Feature interpolation results on CUB-200 and Oxford-102 dataset.
+                  <br>
+                </p></td>
+            </tr>
+    </tbody>
+  </table>
+  <p class="section">Supplementary material</p>
+  You can find the data in supplemental material <a href="./supplymentary.html">here</a>.
+  <p class="section">Paper</p>
+  <table border="0">
+    <tbody>
+      <tr>
+        <td height="195"><a href="www.baidu.com"><img src="./image/paper_cover.jpg" alt="" width="175" height="211"></a></td>
+        <td>&nbsp;</td>
+	<td>&nbsp;</td>
+        <td>"Speech-to-Image Translation without Text",<br>
+            Jiguo, Li, Xinfeng Zhang, Chuanmin Jia, Jizheng Xu, Li Zhang, Yue Wang, Siwei Ma, Wen Gao<br>
+	Arxiv<br>
+        <p><a href="www.baidu.com">[Arxiv]</a></p></td>
+      </tr>
+    </tbody>
+  </table>
+&nbsp;<br>
+
+  <p><span class='section'>Data and Code</span></p>
+  <p><span class="subsection">Data </span></p>
+  <p>We use 3 datasets in our paper, the data can be downloaded form the following table.</p>
+  <table border="1" class="aligncenter">
+    <tr>
+      <td>dataset</td><td>image data</td><td>speech caption data</td><td>split file</td>
+    </tr>
+    <tr>
+      <td>CUB-200</td>
+      <td><a href="http://www.vision.caltech.edu/visipedia/CUB-200-2011.html">CUB-200</a></a></td>
+      <td>syhthesized by <a href="https://ai.baidu.com/tech/speech/tts">Baidu TTS</a> with person 0</td>
+      <td><a href="./data/CUB-200/CUB-200.zip" download>train/val split</a></td>
+    </tr>
+    <tr>
+      <td>Oxford-102</td>
+      <td><a href="http://www.robots.ox.ac.uk/~vgg/data/flowers/">Oxford-102</a></td>
+      <td>syhthesized by <a href="https://ai.baidu.com/tech/speech/tts">Baidu TTS</a> with person 0</td>
+      <td><a href="./data/Oxford-102/Oxford-102.zip" download>train/test split</a></td>
+    </tr>
+    <tr>
+      <td>Places-205</td>
+      <td><a href="http://places.csail.mit.edu/">Places-205</a></td>
+      <td><a href="https://groups.csail.mit.edu/sls/downloads/placesaudio/index.cgi">Places Audio Captions Dataset</a></td>
+      <td><a href="./data/Places-205/Places-205.zip" download>train/test split</a></td>
+    </tr>
+    <caption>The data used in our paper.</caption> 
+  </table>
+  <p><span class="subsection">Code</span></p>
+  <p>The code will come soon.</p>
+
+
+  <p class="section">Acknowledgment</p>
+  <table border="0">
+    <tbody>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>The authors would like to thank <a href="http://www.cs.cityu.edu.hk/~shiqwang/">Shiqi Wang</a> for helpful discussion.
+<br>
+		&nbsp;<br>
+	</td>
+	</tr>
+  </tbody>
+  </table>
+  <p>&nbsp;</p>
+  <p class="section">&nbsp;</p>
+
+  
+  
+
+
+<!--
+  <table width="200" border="0" align="center">
+    <tbody><tr>
+      <td class="caption"><img src="./main/teaser_side.jpg" width="270" alt=""></td>
+      <td class="caption"><table width="75%" border="0" align="right" cellpadding="0">
+        <tbody>
+          <tr>
+            <td width="16%"><img src="./main/0024Daniel_Craig_L1Ltxf1NeL8_0000007.jpg" width="100"></td>
+            <td width="16%"><img src="./main/1044Phyllis_Diller_qoc0k5YwbRI_0000019.jpg" width="100"></td>
+            <td width="16%"><img src="./main/0014Kodi_Smit-McPhee_NUZdfoqhB8o_0000015.jpg" width="100"></td>
+            <td width="16%"><img src="./main/1114Maria_Sharapova_rWaBVelzaFk_0000022.jpg" width="100"></td>
+            <td width="16%"><img src="./main/0022Andre_Braugher_p5AJtU5gclc_0000004.jpg" width="100"></td>
+            <td width="20%"><img src="./main/1111Parineeti_Chopra_2yUgv3B_YcI_0000002.jpg" width="100"></td>
+          </tr>
+          <tr>
+            <td colspan="6" align="center">True face (only for reference)</td>
+          </tr>
+          <tr>
+            <td><audio controls="controls" style="width: 110px;">
+              <source src="images/teaser/wav/0024Daniel_Craig_L1Ltxf1NeL8_0000007.wav" type="audio/wav">
+              Does not support </audio></td>
+            <td><audio controls="controls" style="width: 110px;">
+              <source src="images/teaser/wav/1044Phyllis_Diller_qoc0k5YwbRI_0000019.wav" type="audio/wav">
+              Does not support </audio></td>
+            <td><audio controls="controls" style="width: 110px;">
+              <source src="images/teaser/wav/0014Kodi_Smit-McPhee_NUZdfoqhB8o_0000015.wav" type="audio/wav">
+              Does not support </audio></td>
+            <td><audio controls="controls" style="width: 110px;">
+              <source src="images/teaser/wav/1114Maria_Sharapova_rWaBVelzaFk_0000022.wav" type="audio/wav">
+              Does not support </audio></td>
+            <td><audio controls="controls" style="width: 110px;">
+              <source src="images/teaser/wav/0022Andre_Braugher_p5AJtU5gclc_0000004.wav" type="audio/wav">
+              Does not support </audio></td>
+            <td><audio controls="controls" style="width: 110px;">
+              <source src="images/teaser/wav/1111Parineeti_Chopra_2yUgv3B_YcI_0000002.wav" type="audio/wav">
+              Does not support </audio></td>
+          </tr>
+          <tr>
+            <td colspan="6" align="center">Input waveforms</td>
+          </tr>
+          <tr>
+            <td><img src="./main/0024Daniel_Craig_L1Ltxf1NeL8_0000007(1).jpg" width="100"></td>
+            <td><img src="./main/1044Phyllis_Diller_qoc0k5YwbRI_0000019(1).jpg" width="100"></td>
+            <td><img src="./main/0014Kodi_Smit-McPhee_NUZdfoqhB8o_0000015(1).jpg" width="100"></td>
+            <td><img src="./main/1114Maria_Sharapova_rWaBVelzaFk_0000022(1).jpg" width="100"></td>
+            <td><img src="./main/0022Andre_Braugher_p5AJtU5gclc_0000004(1).jpg" width="100"></td>
+            <td><img src="./main/1111Parineeti_Chopra_2yUgv3B_YcI_0000002(1).jpg" width="100"></td>
+          </tr>
+          <tr>
+            <td colspan="6" align="center">Face reconstructed from speech</td>
+          </tr>
+        </tbody>
+      </table></td>
+    </tr>
+    <tr>
+      <td colspan="2" class="caption"><p>We consider the task of reconstructing an image of a person’s face from a short input audio segment of speech. We show several results of our method on VoxCeleb dataset.<strong> Our model takes only an audio waveform as input </strong>(the true faces are shown just for reference)<strong>.</strong> Note that our goal is not to reconstruct an accurate image of the person, but rather to recover characteristic physical features that are correlated with the input speech. <br>
+        <br>
+        <em>*The three authors  contributed equally to this work.</em><br>
+      </p></td>
+    </tr>
+  </tbody></table>
+	<br>
+  <p><span class="section">Abstract</span> </p>
+  <p>How much can we infer about a person's looks from the way they speak? In this paper, we study the task of reconstructing a facial image of a person from a short audio recording of that person speaking. We design and train a deep neural network to perform this task using millions of natural videos of people speaking from 
+Internet/Youtube. During training, our model learns audiovisual, voice-face correlations that allow it to produce images that capture various physical attributes of the speakers such as age, gender and ethnicity. This is done in a self-supervised manner, by utilizing the natural co-occurrence of faces and speech in Internet videos, without the need to model attributes explicitly. 
+Our reconstructions, obtained directly from audio, reveal the  correlations between faces and voices. We evaluate and numerically quantify how--and in what manner--our Speech2Face reconstructions from audio resemble the true face images of the speakers.<br>
+    &nbsp;<br>
+    
+</p>
+
+
+  <p class="section">Paper</p>
+  <table border="0">
+    <tbody>
+      <tr>
+        <td height="195"><a href="https://arxiv.org/abs/1905.09773"><img src="./main/webthumbnail.jpg" alt="" width="175" height="211"></a></td>
+        <td>&nbsp;</td>
+	<td>&nbsp;</td>
+        <td>"Speech2Face: Learning the Face Behind a Voice",<br>
+            Tae-Hyun Oh, Tali Dekel, Changil Kim, Inbar Mosseri, William T. Freeman, Michael Rubinstein, Wojciech Matusik<br>
+	IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2019<br>
+        <p><a href="https://arxiv.org/abs/1905.09773">[Arxiv]</a></p></td>
+      </tr>
+    </tbody>
+  </table>
+&nbsp;<br>
+  <p class="section">Supplementary Material</p>
+  <table width="283" height="136" border="0">
+    <tbody>
+      <tr>
+        <td width="165"><a href="https://speech2face.github.io/supplemental/index.html"><img src="./main/supp_fig.jpg" alt="" width="207"></a></td>
+        <td width="6">&nbsp;</td>
+        <td width="56"><p>[<a href="https://speech2face.github.io/supplemental/index.html">Link</a>]</p></td>
+      </tr>
+    </tbody>
+  </table>
+&nbsp;<br>
+<p class="section">Ethical Considerations</p>
+  <table border="0">
+    <tbody>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>
+		Although this is a purely academic investigation, we feel that it is important to explicitly discuss in the paper a set of ethical considerations due to the potential sensitivity of facial information.<br>
+		&nbsp;<br>
+	</td>
+	</tr>
+	<tr>
+	<td>&nbsp;</td>
+        <td>&nbsp;</td>
+	<td>
+		<strong>Privacy.</strong> As mentioned, our method cannot recover the true identity of a person from their voice (i.e., an exact image of their face). 
+This is because our model is trained to capture visual features (related to age, gender, etc.) that are common to <i>many</i> individuals, and only in cases where there is strong enough evidence to connect those visual features with vocal/speech attributes in the data (see ``voice-face correlations'' below). As such, the model will only produce average-looking faces, with characteristic visual features that are correlated with the input speech. It will not produce images of specific individuals. <br>
+		&nbsp;<br>
+	</td></tr>
+	<tr>
+	<td>&nbsp;</td>
+        <td>&nbsp;</td>
+	<td>
+		<strong>Voice-face correlations and dataset bias.</strong> Our model is designed to reveal statistical correlations that exist between facial features and voices of speakers in the training data. The training data we use is a collection of educational videos from YouTube, and does not represent equally the entire world population. Therefore, the model---as is the case with any machine learning model---is affected by this uneven distribution of data. <br>
+
+		More specifically, if a set of speakers might have vocal-visual traits that are relatively uncommon in the data, then the quality of our reconstructions for such cases may degrade.  For example, if a certain language does not appear in the training data, our reconstructions will not capture well the facial attributes that may be correlated with that language. <br>
+
+		Note that some of the features in our predicted faces may not even be physically connected to speech, for example hair color or style. However, if many speakers in the training set who speak in a similar way (e.g., in the same language) also share some common visual traits (e.g., a common hair color or style), then those visual traits may show up in the predictions. <br>
+ 
+		For the above reasons, we recommend that any further investigation or practical use of this technology will be carefully tested to ensure that the training data is representative of the intended user population. If that is not the case, more representative data should be broadly collected. <br>
+		&nbsp;<br>
+	</td>
+	</tr>
+	<tr>
+	<td>&nbsp;</td>
+        <td>&nbsp;</td>
+	<td>
+		<strong>Categories.</strong>
+		In our experimental section, we mention inferred demographic categories such as "White" and "Asian". These are categories defined and used by a commercial face attribute classifier (<a href="https://www.faceplusplus.com/">Face++</a>), and were only used for evaluation in this paper. Our model is not supplied with and does not make use of this information at any stage.<br>
+		&nbsp;<br>
+	</td>
+      </tr>
+    </tbody>
+  </table>
+<p class="section">Further Reading
+</p>
+<table border="0">
+  <tbody>
+    <tr>
+      <td width="6">&nbsp;</td>
+      <td width="6">&nbsp;</td>
+      <td width="977"><p><em>"Seeing voices and hearing faces: Cross-modal biometric matching",  A. Nagrani, S. Albanie, and A. Zisserman, CVPR 2018</em></p>
+	<p><em>"On Learning Associations of Faces and Voices", C. Kim, H. V. Shin, T.-H. Oh, A. Kaspar, M. Elgharib, and W. Matusik, ACCV 2018 </em></p>
+        <p><em>"Wav2Pix: speech-conditioned face generation using generative adversarial networks", A. Duarte, F. Roldan, M. Tubau, J. Escur, S. Pascual, A. Salvador, E. Mohedano, K. McGuinness, J. Torres, and X. Giroi-Nieto, ICASSP 2019 </em></p>
+        <p><em>"Disjoint mapping network for cross-modal matching of voices and faces", Y. Wen, M. A. Ismail, W. Liu, B. Raj, and R. Singh, ICLR 2019</em></p>
+        <p><em>"Putting the face to the voice: Matching identity across modality", M. Kamachi, H. Hill, K. Lander, and E. Vatikiotis-Bateson, Current Biology, 2003        </em><em><br>
+        </em></p></td>
+    </tr>
+  </tbody>
+</table>
+<p class="section">Acknowledgment</p>
+  <table border="0">
+    <tbody>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>
+		The authors would like to thank Suwon
+Shon, James Glass, Forrester Cole and Dilip Krishnan for
+helpful discussion. T.-H. Oh and C. Kim were supported by
+QCRI-CSAIL Computer Science Research Program at MIT.
+<br>
+		&nbsp;<br>
+	</td>
+	</tr>
+  </tbody>
+  </table>
+  <p>&nbsp;</p>
+  <p class="section">&nbsp;</p>
+  -->
+
+
+
+
+  <!--
+  <p class="section">Google Research Blog</p>
+  <table width="1300" border="0">
+    <tbody>
+      <tr>
+        <td width="136"><img src="images/research_blog.png" width="200" height="131" alt=""/></td>
+        <td width="1048"><a href="https://research.googleblog.com/2017/08/making-visible-watermarks-more-effective.html"><img src="images/blog_post.png" width="300" height="166" alt=""/></a></td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="section">Press</p>
+  <table border="0" cellpadding="10">
+    <tbody>
+      <tr>
+        <td><a href="https://www.theverge.com/2017/8/18/16162108/google-research-algorithm-watermark-removal-photo-protection"><img src="images/the_verge_2016_logo.png" width="200" height="37" alt=""/></a></td>
+        <td><a href="https://petapixel.com/2017/08/18/ai-can-easily-erase-photo-watermarks-heres-protect/"><img src="images/petapixel.png" width="200" height="50" alt=""/></a></td>
+        <td><a href="https://www.engadget.com/2017/08/18/google-flawlessly-remove-stock-photo-watermarks/"><img src="images/engadget.png" width="200" height="44" alt=""/></a></td>
+        <td><a href="https://www.wired.com/story/stock-photo-google-algorithm/"><img src="images/wired-logo.jpg" width="200" height="46" alt=""/></a></td>
+      </tr>
+      <tr>
+        <td><a href="http://www.dailymail.co.uk/sciencetech/article-4803562/Google-AI-easily-erase-watermarks-photos.html"><img src="images/dm_com_29.png" width="210" height="62" alt=""/></a></td>
+        <td><a href="https://thenextweb.com/google/2017/08/18/google-watermark-stock-photo-remove/"><img src="images/the_next_web_logo.jpg" width="190" height="100" alt=""/></a></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="section">&nbsp;</p>
+  <p class="section">&nbsp;</p>
+  <p class="section">&nbsp;</p>
+-->
+  <p class="section">&nbsp;</p>
+</div>
+
+
+</body></html>

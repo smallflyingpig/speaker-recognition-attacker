@@ -7,7 +7,23 @@
 </title>
 <link href="./main/style.css" rel="stylesheet" type="text/css">
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script type="text/javascript" async="" src="./main/analytics.js"></script><script async="" src="./main/js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script type="text/javascript">
+LatexIT.add('p',true);
+</script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -104,7 +120,7 @@
 
   <p><span class="section">Abstract</span> </p>
   <p>
-    Due to the widespread deployment of fingerprint/face/speaker recognition systems, attacking deep learning based biometric systems has drawn more and more attention.  Previous research mainly studied the attack to the vision-based system, such as fingerprint and face recognition. While the attack for speaker recognition has not been investigated yet, although it has been widely used in our daily life. In this paper, we attempt to fool the state-of-the-art speaker recognition model and present <strong>speaker recognition attacker</strong>, a lightweight model to fool the deep speaker recognition model by adding imperceptible perturbations onto the raw speech waveform. We find that the speaker recognition system is also vulnerable to the attack, and we achieve a high success rate on the non-targeted attack. Besides, we also present an effective method to optimize the speaker recognition attacker to obtain a trade-off between the attack success rate with the signal distortion. Experiments on the TIMIT dataset show that we can achieve a 99.2% sentence error rate with an average SNR 57.2dB and PESQ 4.2 with speed rather faster than real-time. 
+    Due to the widespread deployment of fingerprint/face/speaker recognition systems, attack for deep learning based biometric systems has drawn more and more attention.  Previous research mainly studies the attack to the vision-based system, such as fingerprint and face recognition, while the attack for speaker recognition has not been well-studied, although it has been widely used in our daily life. In this paper, we present <strong>speaker attacker</strong>, a model to fool the deep speaker recognition model by adding imperceptible perturbations onto the raw speech waveform. The speaker attacker is fast because no iteration is needed once the model is trained. We also present an effective method to optimize the speaker attacker to fool the speaker recognition model with minimal perturbations. We attack the state-of-the-art speaker recognition model on the TIMIT dataset and achieve a $92.7\%$ sentence error rate with an average SNR $45\text{dB}$ and PESQ 4.24 with speech rather faster than real-time. 
     <br>&nbsp;<br>
   </p>
   <p><span class="section">Framework</span> </p>
@@ -128,6 +144,7 @@
 
 
   <p><span class='section'>Results on the non-targeted attack</span></p>
+  Here we show the results with $\lambda_{phn}=1, \lambda_{norm}=1000, m=0.01$.
   <table width=100% border="0" align="center">
       <tbody>
           <tr>
@@ -149,16 +166,16 @@
             </tr>
         <tr>
           <td class="aligncenter">
-           <audio src="./audio/non-targeted/si453.ogg" controls="controls" style="width: 250px;"></audio>
+           <audio src="./audio/raw_data/train/dr1/fcjf0/si1027.ogg" controls="controls" style="width: 250px;"></audio>
           </td>
           <td class="aligncenter">
              fcjf0
           </td>
           <td class="aligncenter">
-            <audio src="./audio/non-targeted/si453.ogg" controls="controls" style="width: 250px;"></audio>
+            <audio src="./audio/output_non_target_phn1/train/dr1/fcjf0/si1027.ogg" controls="controls" style="width: 250px;"></audio>
           </td>
           <td class="aligncenter">
-              fcjf0
+              fsrh0
            </td>
            <td class="aligncenter">
               fcjf0
@@ -166,16 +183,16 @@
         </tr>
         <tr>
             <td class="aligncenter">
-             <audio src="./audio/non-targeted/si454.ogg" controls="controls" style="width: 250px;"></audio>
+             <audio src="./audio/raw_data/train/dr1/fcjf0/si1657.ogg" controls="controls" style="width: 250px;"></audio>
             </td>
             <td class="aligncenter">
                 fcjf0
              </td>
             <td class="aligncenter">
-              <audio src="./audio/non-targeted/si454.ogg" controls="controls" style="width: 250px;"></audio>
+              <audio src="./audio/output_non_target_phn1/train/dr1/fcjf0/si1657.ogg" controls="controls" style="width: 250px;"></audio>
             </td>
             <td class="aligncenter">
-                fcjf0
+              fsrh0
              </td>
              <td class="aligncenter">
                 fcjf0
@@ -183,16 +200,16 @@
         </tr>
         <tr>
           <td class="aligncenter">
-           <audio src="./audio/non-targeted/si456.ogg" controls="controls" style="width: 250px;"></audio>
+           <audio src="./audio/raw_data/train/dr1/fcjf0/si648.ogg" controls="controls" style="width: 250px;"></audio>
           </td>
           <td class="aligncenter">
               fcjf0
            </td>
           <td class="aligncenter">
-            <audio src="./audio/non-targeted/si456.ogg" controls="controls" style="width: 250px;"></audio>
+            <audio src="./audio/output_non_target_phn1/train/dr1/fcjf0/si648.ogg" controls="controls" style="width: 250px;"></audio>
           </td>
           <td class="aligncenter">
-              fcjf0
+            fsrh0
            </td>
            <td class="aligncenter">
               fcjf0
@@ -200,127 +217,127 @@
         </tr>
         <tr>
           <td class="aligncenter">
-           <audio src="./audio/non-targeted/si457.ogg" controls="controls" style="width: 250px;"></audio>
+           <audio src="./audio/raw_data/train/dr1/fdaw0/si1271.ogg" controls="controls" style="width: 250px;"></audio>
           </td>
           <td class="aligncenter">
-              fcjf0
+            fdaw0
            </td>
           <td class="aligncenter">
-            <audio src="./audio/non-targeted/si457.ogg" controls="controls" style="width: 250px;"></audio>
+            <audio src="./audio/output_non_target_phn1/train/dr1/fdaw0/si1271.ogg" controls="controls" style="width: 250px;"></audio>
           </td>
           <td class="aligncenter">
-              fcjf0
+            fsrh0
            </td>
            <td class="aligncenter">
-              fcjf0
+            fdaw0
            </td>
         </tr>
         <tr>
             <td class="aligncenter">
-             <audio src="./audio/non-targeted/si463.ogg" controls="controls" style="width: 250px;"></audio>
+             <audio src="./audio/raw_data/train/dr1/fdaw0/si1406.ogg" controls="controls" style="width: 250px;"></audio>
             </td>
             <td class="aligncenter">
-                fcjf0
+              fdaw0
              </td>
             <td class="aligncenter">
-              <audio src="./audio/non-targeted/si463.ogg" controls="controls" style="width: 250px;"></audio>
+              <audio src="./audio/output_non_target_phn1/train/dr1/fdaw0/si1406.ogg" controls="controls" style="width: 250px;"></audio>
             </td>
             <td class="aligncenter">
-                fcjf0
+              fsrh0
              </td>
              <td class="aligncenter">
-                fcjf0
+              fdaw0
              </td>
         </tr>
         <tr>
             <td class="aligncenter">
-             <audio src="./audio/non-targeted/si465.ogg" controls="controls" style="width: 250px;"></audio>
+             <audio src="./audio/raw_data/train/dr1/fdaw0/si2036.ogg" controls="controls" style="width: 250px;"></audio>
             </td>
             <td class="aligncenter">
-                fcjf0
+              fdaw0
              </td>
             <td class="aligncenter">
-              <audio src="./audio/non-targeted/si465.ogg" controls="controls" style="width: 250px;"></audio>
+              <audio src="./audio/output_non_target_phn1/train/dr1/fdaw0/si2036.ogg" controls="controls" style="width: 250px;"></audio>
             </td>
             <td class="aligncenter">
-                fcjf0
+              fsrh0
              </td>
              <td class="aligncenter">
-                fcjf0
+              fdaw0
              </td>
         </tr>
         <tr>
             <td class="aligncenter">
-             <audio src="./audio/non-targeted/si466.ogg" controls="controls" style="width: 250px;"></audio>
+             <audio src="./audio/raw_data/train/dr2/faem0/si1392.ogg" controls="controls" style="width: 250px;"></audio>
             </td>
             <td class="aligncenter">
-                fcjf0
+              faem0
              </td>
             <td class="aligncenter">
-              <audio src="./audio/non-targeted/si466.ogg" controls="controls" style="width: 250px;"></audio>
+              <audio src="./audio/output_non_target_phn1/train/dr2/faem0/si1392.ogg" controls="controls" style="width: 250px;"></audio>
             </td>
             <td class="aligncenter">
-                fcjf0
+              msvs0
              </td>
              <td class="aligncenter">
-                fcjf0
+              faem0
              </td>
         </tr>
         <tr>
             <td class="aligncenter">
-             <audio src="./audio/non-targeted/si467.ogg" controls="controls" style="width: 250px;"></audio>
+             <audio src="./audio/raw_data/train/dr2/faem0/si2022.ogg" controls="controls" style="width: 250px;"></audio>
             </td>
             <td class="aligncenter">
-                fcjf0
+              faem0
              </td>
             <td class="aligncenter">
-              <audio src="./audio/non-targeted/si467.ogg" controls="controls" style="width: 250px;"></audio>
+              <audio src="./audio/output_non_target_phn1/train/dr2/faem0/si2022.ogg" controls="controls" style="width: 250px;"></audio>
             </td>
             <td class="aligncenter">
-                fcjf0
+              msvs0
              </td>
              <td class="aligncenter">
-                fcjf0
+              faem0
              </td>
         </tr>
         <tr>
             <td class="aligncenter">
-             <audio src="./audio/non-targeted/si468.ogg" controls="controls" style="width: 250px;"></audio>
+             <audio src="./audio/raw_data/train/dr2/faem0/si762.ogg" controls="controls" style="width: 250px;"></audio>
             </td>
             <td class="aligncenter">
-                fcjf0
+              faem0
              </td>
             <td class="aligncenter">
-              <audio src="./audio/non-targeted/si468.ogg" controls="controls" style="width: 250px;"></audio>
+              <audio src="./audio/output_non_target_phn1/train/dr2/faem0/si762.ogg" controls="controls" style="width: 250px;"></audio>
             </td>
             <td class="aligncenter">
-                fcjf0
+              msvs0
              </td>
              <td class="aligncenter">
-                fcjf0
+              faem0
              </td>
         </tr>
         <tr>
             <td class="aligncenter">
-             <audio src="./audio/non-targeted/si471.ogg" controls="controls" style="width: 250px;"></audio>
+             <audio src="./audio/raw_data/train/dr8/fbcg1/si1612.ogg" controls="controls" style="width: 250px;"></audio>
             </td>
             <td class="aligncenter">
-                fcjf0
+              fbcg1
              </td>
             <td class="aligncenter">
-              <audio src="./audio/non-targeted/si472.ogg" controls="controls" style="width: 250px;"></audio>
+              <audio src="./audio/output_non_target_phn1/train/dr8/fbcg1/si1612.ogg" controls="controls" style="width: 250px;"></audio>
             </td>
             <td class="aligncenter">
-                fcjf0
+              fsrh0
              </td>
              <td class="aligncenter">
-                fcjf0
+              fbcg1
              </td>
         </tr>
         <tr>
             <td colspan="5" class="caption" align="center">
               <p>
-                non-targeted results on TIMIT dataset</a>.
+                Non-targeted attack results on TIMIT dataset</a>.
               <br>
             </p></td>
         </tr>
@@ -344,177 +361,210 @@
               prediction
             </td>
           <td class="aligncenter">
+              attack target
+            </td>
+          <td class="aligncenter">
               ground truth
           </td>
       </tr>
       <tr>
         <td class="aligncenter">
-         <audio src="./audio/non-targeted/si453.ogg" controls="controls" style="width: 250px;"></audio>
+         <audio src="./audio/raw_data/train/dr1/fdaw0/si1271.ogg" controls="controls" style="width: 250px;"></audio>
         </td>
         <td class="aligncenter">
-            fcjf0
+          fdaw0
          </td>
         <td class="aligncenter">
-          <audio src="./audio/non-targeted/si453.ogg" controls="controls" style="width: 250px;"></audio>
-        </td>
-        <td class="aligncenter">
-            fcjf0
-         </td>
-         <td class="aligncenter">
-            fcjf0
-         </td>
-      </tr>
-      <tr>
-          <td class="aligncenter">
-           <audio src="./audio/non-targeted/si454.ogg" controls="controls" style="width: 250px;"></audio>
-          </td>
-          <td class="aligncenter">
-              fcjf0
-           </td>
-          <td class="aligncenter">
-            <audio src="./audio/non-targeted/si454.ogg" controls="controls" style="width: 250px;"></audio>
-          </td>
-          <td class="aligncenter">
-              fcjf0
-           </td>
-           <td class="aligncenter">
-              fcjf0
-           </td>
-      </tr>
-      <tr>
-        <td class="aligncenter">
-         <audio src="./audio/non-targeted/si456.ogg" controls="controls" style="width: 250px;"></audio>
-        </td>
-        <td class="aligncenter">
-            fcjf0
-         </td>
-        <td class="aligncenter">
-          <audio src="./audio/non-targeted/si456.ogg" controls="controls" style="width: 250px;"></audio>
+          <audio src="./audio/output_target0/train/dr1/fdaw0/si1271.ogg" controls="controls" style="width: 250px;"></audio>
         </td>
         <td class="aligncenter">
             fcjf0
          </td>
          <td class="aligncenter">
-            fcjf0
+          fcjf0
+       </td>
+         <td class="aligncenter">
+          fdaw0
          </td>
       </tr>
       <tr>
+          <td class="aligncenter">
+           <audio src="./audio/raw_data/train/dr1/fdaw0/si1406.ogg" controls="controls" style="width: 250px;"></audio>
+          </td>
+          <td class="aligncenter">
+            fdaw0
+           </td>
+          <td class="aligncenter">
+            <audio src="./audio/output_target0/train/dr1/fdaw0/si1406.ogg" controls="controls" style="width: 250px;"></audio>
+          </td>
+          <td class="aligncenter">
+              fcjf0
+           </td>
+           <td class="aligncenter">
+            fcjf0
+           </td>
+           <td class="aligncenter">
+            fdaw0
+           </td>
+      </tr>
+      <tr>
         <td class="aligncenter">
-         <audio src="./audio/non-targeted/si457.ogg" controls="controls" style="width: 250px;"></audio>
+         <audio src="./audio/raw_data/train/dr2/faem0/si1392.ogg" controls="controls" style="width: 250px;"></audio>
         </td>
         <td class="aligncenter">
-            fcjf0
+          faem0
          </td>
         <td class="aligncenter">
-          <audio src="./audio/non-targeted/si457.ogg" controls="controls" style="width: 250px;"></audio>
+          <audio src="./audio/output_target0/train/dr2/faem0/si1392.ogg" controls="controls" style="width: 250px;"></audio>
         </td>
         <td class="aligncenter">
             fcjf0
          </td>
          <td class="aligncenter">
+          fcjf0
+       </td>
+         <td class="aligncenter">
+          faem0
+         </td>
+      </tr>
+      <tr>
+        <td class="aligncenter">
+         <audio src="./audio/raw_data/train/dr8/fbcg1/si1612.ogg" controls="controls" style="width: 250px;"></audio>
+        </td>
+        <td class="aligncenter">
+          fbcg1
+         </td>
+        <td class="aligncenter">
+          <audio src="./audio/output_target0/train/dr8/fbcg1/si1612.ogg" controls="controls" style="width: 250px;"></audio>
+        </td>
+        <td class="aligncenter">
             fcjf0
+         </td>
+         <td class="aligncenter">
+          fcjf0
+         </td>
+         <td class="aligncenter">
+          fbcg1
          </td>
       </tr>
       <tr>
           <td class="aligncenter">
-           <audio src="./audio/non-targeted/si463.ogg" controls="controls" style="width: 250px;"></audio>
+           <audio src="./audio/raw_data/train/dr1/fcjf0/si1027.ogg" controls="controls" style="width: 250px;"></audio>
           </td>
           <td class="aligncenter">
-              fcjf0
+            fcjf0
            </td>
           <td class="aligncenter">
-            <audio src="./audio/non-targeted/si463.ogg" controls="controls" style="width: 250px;"></audio>
+            <audio src="./audio/output_target100/train/dr1/fcjf0/si1027.ogg" controls="controls" style="width: 250px;"></audio>
           </td>
           <td class="aligncenter">
-              fcjf0
+            mrjh0
            </td>
            <td class="aligncenter">
-              fcjf0
+            mrjh0
+           </td>
+           <td class="aligncenter">
+            fcjf0
            </td>
       </tr>
       <tr>
           <td class="aligncenter">
-           <audio src="./audio/non-targeted/si465.ogg" controls="controls" style="width: 250px;"></audio>
+           <audio src="./audio/raw_data/train/dr2/faem0/si1392.ogg" controls="controls" style="width: 250px;"></audio>
           </td>
           <td class="aligncenter">
-              fcjf0
+            faem0
            </td>
           <td class="aligncenter">
-            <audio src="./audio/non-targeted/si465.ogg" controls="controls" style="width: 250px;"></audio>
+            <audio src="./audio/output_target100/train/dr2/faem0/si1392.ogg" controls="controls" style="width: 250px;"></audio>
           </td>
           <td class="aligncenter">
-              fcjf0
-           </td>
+            mrjh0
+          </td>
+          <td class="aligncenter">
+            mrjh0
+         </td>
            <td class="aligncenter">
-              fcjf0
+            faem0
            </td>
       </tr>
       <tr>
           <td class="aligncenter">
-           <audio src="./audio/non-targeted/si466.ogg" controls="controls" style="width: 250px;"></audio>
+           <audio src="./audio/raw_data/train/dr1/fcjf0/si1027.ogg" controls="controls" style="width: 250px;"></audio>
           </td>
           <td class="aligncenter">
-              fcjf0
+            fcjf0
            </td>
           <td class="aligncenter">
-            <audio src="./audio/non-targeted/si466.ogg" controls="controls" style="width: 250px;"></audio>
+            <audio src="./audio/output_target200/train/dr1/fcjf0/si1027.ogg" controls="controls" style="width: 250px;"></audio>
           </td>
           <td class="aligncenter">
-              fcjf0
+            fklc0
            </td>
            <td class="aligncenter">
-              fcjf0
+            fklc0
+           </td>
+           <td class="aligncenter">
+            fcjf0
            </td>
       </tr>
       <tr>
           <td class="aligncenter">
-           <audio src="./audio/non-targeted/si467.ogg" controls="controls" style="width: 250px;"></audio>
+           <audio src="./audio/raw_data/train/dr1/fcjf0/si1657.ogg" controls="controls" style="width: 250px;"></audio>
           </td>
           <td class="aligncenter">
-              fcjf0
+            fcjf0
            </td>
           <td class="aligncenter">
-            <audio src="./audio/non-targeted/si467.ogg" controls="controls" style="width: 250px;"></audio>
+            <audio src="./audio/output_target200/train/dr1/fcjf0/si1657.ogg" controls="controls" style="width: 250px;"></audio>
           </td>
           <td class="aligncenter">
-              fcjf0
+            fklc0
            </td>
            <td class="aligncenter">
-              fcjf0
+            fklc0
+           </td>
+           <td class="aligncenter">
+            fcjf0
            </td>
       </tr>
       <tr>
           <td class="aligncenter">
-           <audio src="./audio/non-targeted/si468.ogg" controls="controls" style="width: 250px;"></audio>
+           <audio src="./audio/raw_data/train/dr2/faem0/si2022.ogg" controls="controls" style="width: 250px;"></audio>
           </td>
           <td class="aligncenter">
-              fcjf0
+            faem0
            </td>
           <td class="aligncenter">
-            <audio src="./audio/non-targeted/si468.ogg" controls="controls" style="width: 250px;"></audio>
+            <audio src="./audio/output_target400/train/dr2/faem0/si2022.ogg" controls="controls" style="width: 250px;"></audio>
           </td>
           <td class="aligncenter">
-              fcjf0
+            mfxs0
            </td>
            <td class="aligncenter">
-              fcjf0
+            mfxs0
+           </td>
+           <td class="aligncenter">
+            faem0
            </td>
       </tr>
       <tr>
           <td class="aligncenter">
-           <audio src="./audio/non-targeted/si471.ogg" controls="controls" style="width: 250px;"></audio>
+           <audio src="./audio/raw_data/train/dr2/faem0/si1392.ogg" controls="controls" style="width: 250px;"></audio>
           </td>
           <td class="aligncenter">
-              fcjf0
+            faem0
            </td>
           <td class="aligncenter">
-            <audio src="./audio/non-targeted/si472.ogg" controls="controls" style="width: 250px;"></audio>
+            <audio src="./audio/output_target400/train/dr2/faem0/si1392.ogg" controls="controls" style="width: 250px;"></audio>
           </td>
           <td class="aligncenter">
-              fcjf0
+            faem0
            </td>
            <td class="aligncenter">
-              fcjf0
+            mfxs0
+           </td>
+           <td class="aligncenter">
+            faem0
            </td>
       </tr>
       
@@ -560,14 +610,14 @@
         <td>"Learning to Fool the Speaker Recognition",<br>
             Jiguo, Li, Xinfeng Zhang, Chuanmin Jia, Jizheng Xu, Li Zhang, Yue Wang, Siwei Ma, Wen Gao<br>
 	Arxiv<br>
-        <p><a href="https://smallflyingpig.github.io/speaker-recognition-attacker/main">[Arxiv, avaliable soon]</a></p></td>
+        <p>[Arxiv, avaliable soon]</p></td>
       </tr>
     </tbody>
   </table>
 &nbsp;<br>
 
   <p><span class='section'>Data, Pretrained models, Code</span></p>
-  <p>The TIMIT dataset can be downloaded from <a href=“https://www.kaggle.com/nltkdata/timitcorpus”>here</a>. The codes can be found on <a href="https://github.com/smallflyingpig/learning-to-fool-the-speaker-recognition">github</a>.  The pretrained models will come soon.</p>
+  <p>The TIMIT dataset can be downloaded from <a href=“https://www.kaggle.com/nltkdata/timitcorpus”>here</a>. The codes can be found on <a href="https://github.com/smallflyingpig/learning-to-fool-the-speaker-recognition">github</a>.  The pretrained models can be found from <a href="https://drive.google.com/open?id=1ktMqHbX7JJGHY3j8HLgXbCSBcInzp9cJ">here</a>.</p>
 
 
   <p class="section">Acknowledgment</p>
